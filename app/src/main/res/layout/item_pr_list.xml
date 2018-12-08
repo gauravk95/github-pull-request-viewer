@@ -23,8 +23,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text='@{ "#" + item.number, default = Number}'
-            android:textSize="14sp"
             android:textColor="@color/grey_effective"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{item.title, default = Title}"
-            android:textSize="20sp"
             android:maxLines="3"
+            android:text="@{item.title, default = Title}"
             android:textColor="@color/black_effective"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pr_item_number" />
@@ -52,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text='@{item.body, default = Footer}'
-            android:textSize="14sp"
             android:singleLine="true"
+            android:text='@{String.format(@string/pr_item_footer_text, item.getAgoTime(), item.user.login), default = Footer}'
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pr_item_title" />

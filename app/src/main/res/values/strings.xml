@@ -8,4 +8,6 @@
     <string name="please_wait">Please wait…</string>
     <string name="label_refresh">Refresh</string>
 
+    <string name="pr_item_footer_text">Opened %s by %s</string>
+
 </resources>

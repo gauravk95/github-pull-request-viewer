@@ -17,6 +17,7 @@ package com.github.pullrequest.data.models.local
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.text.format.DateUtils
 import java.io.Serializable
 import java.util.Date
 
@@ -38,4 +39,9 @@ data class PullRequest(
         val user: User,
         val labels: List<Label>,
         val created_at: Date,
-        val update_at: Date) : Serializable
+        val update_at: Date) : Serializable {
+
+    fun getAgoTime(): String{
+        return DateUtils.getRelativeTimeSpanString(created_at.time).toString()
+    }
+}
