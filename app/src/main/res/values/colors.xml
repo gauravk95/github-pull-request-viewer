@@ -6,5 +6,6 @@
     <color name="white">#ffffff</color>
     <color name="black_effective">#2a2a2a</color>
     <color name="grey_effective">#6a6a6a</color>
+    <color name="light_grey_effective">#9a9a9a</color>
     <color name="divider">#E5E5E5</color>
 </resources>

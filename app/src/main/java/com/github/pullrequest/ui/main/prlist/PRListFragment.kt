@@ -13,7 +13,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 */
-package com.github.pullrequest.ui.main
+package com.github.pullrequest.ui.main.prlist
 
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
@@ -22,12 +22,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import com.github.pullrequest.R
 import com.github.pullrequest.base.BaseFragment
 import com.github.pullrequest.databinding.FragmentPrListBinding
 import com.github.pullrequest.di.factory.AppViewModelFactory
 import com.github.pullrequest.ui.adapter.PRItemListAdapter
 import com.github.pullrequest.utils.ext.getViewModel
+import com.github.pullrequest.utils.ext.hideKeyboard
 import com.github.pullrequest.utils.ext.toGone
 import com.github.pullrequest.utils.ext.toVisible
 
@@ -41,8 +43,6 @@ import javax.inject.Inject
  */
 class PRListFragment : BaseFragment() {
 
-    private lateinit var inflatedView: View
-
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
@@ -52,7 +52,11 @@ class PRListFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pr_list, container, false)
-        inflatedView = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //inject dependencies
         activityComponent.inject(this)
@@ -64,19 +68,39 @@ class PRListFragment : BaseFragment() {
 
         //subscribe ui
         subscribeUi(adapter)
+        //setup search
+        setupSearchBar()
+    }
 
-        return inflatedView
+    private fun setupSearchBar() {
+        val newQueryListener = object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(query: String): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                hideKeyboard()
+                prListViewModel.search(query)
+                return true
+            }
+        }
+        binding.searchView.setOnQueryTextListener(newQueryListener)
+        binding.searchView.isSubmitButtonEnabled = true
     }
 
     private fun subscribeUi(adapter: PRItemListAdapter) {
         prListViewModel = getViewModel(PRListViewModel::class.java, viewModelFactory)
-        binding.hasItems = true
+        binding.hasItems = false
+        binding.viewModel = prListViewModel
 
         prListViewModel.isLoading().observe(this, Observer { showProgress(it) })
         prListViewModel.getErrorMsg().observe(this, Observer { errorMessage ->
             if (errorMessage != null) onError(errorMessage)
         })
-        prListViewModel.getItemList().observe(this, Observer { items ->
+        prListViewModel.toastMsg.observe(this, Observer {
+            if (it != null) showToastMessage(it)
+        })
+        prListViewModel.itemList.observe(this, Observer { items ->
             val hasItems = (items != null && items.isNotEmpty())
             binding.hasItems = hasItems
             if (hasItems)
@@ -85,10 +109,12 @@ class PRListFragment : BaseFragment() {
     }
 
     private fun showProgress(status: Boolean?) {
-        if (status != null && status)
+        if (status != null && status) {
+            binding.searchStatusMsg.toGone()
             binding.itemLoading.toVisible()
-        else
+        } else {
             binding.itemLoading.toGone()
+        }
     }
 
     companion object {

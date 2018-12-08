@@ -18,7 +18,7 @@ package com.github.pullrequest.di.component
 import com.github.pullrequest.di.PerActivity
 import com.github.pullrequest.di.module.ActivityModule
 import com.github.pullrequest.ui.main.MainActivity
-import com.github.pullrequest.ui.main.PRListFragment
+import com.github.pullrequest.ui.main.prlist.PRListFragment
 
 import dagger.Component
 

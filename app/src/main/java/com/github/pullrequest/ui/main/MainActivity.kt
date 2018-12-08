@@ -21,6 +21,7 @@ import android.view.MenuItem
 
 import com.github.pullrequest.R
 import com.github.pullrequest.base.BaseActivity
+import com.github.pullrequest.ui.main.prlist.PRListFragment
 import com.github.pullrequest.utils.ext.findFragmentById
 import com.github.pullrequest.utils.ext.setFragment
 import com.github.pullrequest.utils.ext.setToolbar

@@ -8,6 +8,11 @@
     <string name="please_wait">Please wait…</string>
     <string name="label_refresh">Refresh</string>
 
-    <string name="pr_item_footer_text">Opened %s by %s</string>
+    <string name="pr_item_footer_text">opened %s by %s</string>
+    <string name="pr_search_hint">Search - owner/repo…</string>
+    <string name="search_msg_start_searching">Start searching…Your results will appear here!</string>
+    <string name="search_msg_repo_not_found">Repo not found! Try something else…</string>
+    <string name="search_query_empty">Search query is empty!</string>
+    <string name="search_query_invalid">Please enter a valid query!</string>
 
 </resources>

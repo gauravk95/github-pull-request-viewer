@@ -2,7 +2,7 @@ package com.github.pullrequest.di.factory
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.github.pullrequest.ui.main.PRListViewModel
+import com.github.pullrequest.ui.main.prlist.PRListViewModel
 import com.github.pullrequest.data.source.repository.AppDataSource
 import com.github.pullrequest.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
