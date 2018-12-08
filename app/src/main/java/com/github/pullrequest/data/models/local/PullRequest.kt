@@ -30,10 +30,12 @@ data class PullRequest(
         @field:PrimaryKey
         val id: String,
         val url: String,
+        val number: Int,
         val state: String,
         val locked: Boolean = false,
         val title: String,
         val body: String,
+        val user: User,
         val labels: List<Label>,
         val created_at: Date,
         val update_at: Date) : Serializable
