@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.github.pullrequest.data.models.local.PullRequest" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.github.pullrequest.ui.custom.CustomTextView
+            android:id="@+id/pr_item_number"
+            style="@style/text_font_opensans_semi_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text='@{ "#" + item.number, default = Number}'
+            android:textSize="14sp"
+            android:textColor="@color/grey_effective"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.pullrequest.ui.custom.CustomTextView
+            android:id="@+id/pr_item_title"
+            style="@style/text_font_opensans_semi_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{item.title, default = Title}"
+            android:textSize="20sp"
+            android:maxLines="3"
+            android:textColor="@color/black_effective"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pr_item_number" />
+
+
+        <com.github.pullrequest.ui.custom.CustomTextView
+            android:id="@+id/pr_item_footer"
+            style="@style/text_font_opensans_regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text='@{item.body, default = Footer}'
+            android:textSize="14sp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pr_item_title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/divider"
+            app:layout_constraintTop_toBottomOf="@id/pr_item_footer" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -16,6 +16,7 @@
 package com.github.pullrequest.data.source.repository
 
 import com.github.pullrequest.data.models.local.PullRequest
+import com.github.pullrequest.utils.AppConstants
 import io.reactivex.Observable
 
 /**
@@ -27,8 +28,8 @@ interface AppDataSource {
     fun getPullRequests(ownerName: String,
                         repoName: String,
                         state: String,
-                        page: Int,
-                        sortBy: String,
-                        direction: String): Observable<List<PullRequest>>
+                        page: Int = 1,
+                        sortBy: String = AppConstants.SORT_BY_POPULARITY,
+                        direction: String = AppConstants.SORT_ORDER_DESCENDING): Observable<List<PullRequest>>
 
 }

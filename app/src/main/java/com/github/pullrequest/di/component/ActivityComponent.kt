@@ -18,7 +18,7 @@ package com.github.pullrequest.di.component
 import com.github.pullrequest.di.PerActivity
 import com.github.pullrequest.di.module.ActivityModule
 import com.github.pullrequest.ui.main.MainActivity
-import com.github.pullrequest.ui.main.MainFragment
+import com.github.pullrequest.ui.main.PRListFragment
 
 import dagger.Component
 
@@ -34,6 +34,6 @@ interface ActivityComponent {
 
     fun inject(activity: MainActivity)
 
-    fun inject(fragment: MainFragment)
+    fun inject(fragment: PRListFragment)
 
 }

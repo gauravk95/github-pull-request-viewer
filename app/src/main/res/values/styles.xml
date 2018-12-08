@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/black_effective</item>
+        <item name="android:textColorSecondary">@color/grey_effective</item>
     </style>
 
     <!--Custom text font styles OpenSans-->

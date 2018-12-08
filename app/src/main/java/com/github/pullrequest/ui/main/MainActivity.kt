@@ -21,7 +21,6 @@ import android.view.MenuItem
 
 import com.github.pullrequest.R
 import com.github.pullrequest.base.BaseActivity
-import com.github.pullrequest.utils.ext.applyFontForToolbarTitle
 import com.github.pullrequest.utils.ext.findFragmentById
 import com.github.pullrequest.utils.ext.setFragment
 import com.github.pullrequest.utils.ext.setToolbar
@@ -39,9 +38,9 @@ class MainActivity : BaseActivity() {
 
         setupToolbar()
 
-        val mainFragment: MainFragment? = findFragmentById(R.id.content_frame)
-        if (mainFragment == null)
-            setFragment(MainFragment.newInstance(), R.id.content_frame)
+        val fragment: PRListFragment? = findFragmentById(R.id.content_frame)
+        if (fragment == null)
+            setFragment(PRListFragment.newInstance(), R.id.content_frame)
 
     }
 
