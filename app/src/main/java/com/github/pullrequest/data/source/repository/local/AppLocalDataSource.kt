@@ -15,20 +15,31 @@
 */
 package com.github.pullrequest.data.source.repository.local
 
+import com.github.pullrequest.data.models.local.PullRequest
 import com.github.pullrequest.data.source.db.AppDatabase
 import com.github.pullrequest.data.source.db.ItemDao
 import com.github.pullrequest.data.source.repository.AppDataSource
+import io.reactivex.Observable
 
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
  * Concrete implementation of a data source as a db using room.
+ *
+ * NOTE: This class is not used for this example
+ * It is only intended for extension purposes
  */
 @Singleton
 class AppLocalDataSource @Inject
 constructor(database: AppDatabase) : AppDataSource {
+
     private val itemDao: ItemDao = database.itemDao()
 
-    //implement local sources here
+    override fun getPullRequests(ownerName: String, repoName: String,
+                                 state: String, page: Int,
+                                 sortBy: String, direction: String): Observable<List<PullRequest>> {
+        // return itemDao.fetchItems()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

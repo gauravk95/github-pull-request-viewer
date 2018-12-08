@@ -17,7 +17,8 @@ package com.github.pullrequest.data.models.local
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import java.util.*
+import java.io.Serializable
+import java.util.Date
 
 /**
  * Describes the data to be modeled
@@ -35,10 +36,4 @@ data class PullRequest(
         val body: String,
         val labels: List<Label>,
         val created_at: Date,
-        val update_at: Date)
-
-data class Label(val id: String,
-                 val url: String,
-                 val name: String,
-                 val color: String,
-                 val default: Boolean = false)
+        val update_at: Date) : Serializable

@@ -15,15 +15,21 @@
 */
 package com.github.pullrequest.data.source.repository
 
+import com.github.pullrequest.data.models.local.PullRequest
 import com.github.pullrequest.data.source.prefs.Preferences
 import com.github.pullrequest.di.Local
 import com.github.pullrequest.di.Remote
+import io.reactivex.Observable
 
 import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
  * The central point to communicate to different data sources like DB, SERVER, SHARED PREFS
+ *
+ * NOTE:
+ * [remoteAppDataSource] is used here to get data frm the server
+ * [localAppDataSource] and [preference] are only intended for extension purposed in future like local caching
  *
  * Created by gk
  */
@@ -34,5 +40,9 @@ constructor(@param:Remote private val remoteAppDataSource: AppDataSource,
             @param:Local private val localAppDataSource: AppDataSource,
             private val preference: Preferences) : AppDataSource {
 
-   //implement logic sources here
+    override fun getPullRequests(ownerName: String, repoName: String,
+                                 state: String, page: Int,
+                                 sortBy: String, direction: String): Observable<List<PullRequest>> {
+        return remoteAppDataSource.getPullRequests(ownerName, repoName, state, page, sortBy, direction)
+    }
 }

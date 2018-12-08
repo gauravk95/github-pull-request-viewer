@@ -6,7 +6,7 @@ import com.google.gson.Gson
 
 import java.util.Date
 
-object Converters {
+class Converters {
 
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
@@ -19,12 +19,13 @@ object Converters {
     }
 
     @TypeConverter
-    fun labelToJson(value: Label?): String {
+    fun labelToJson(value: List<Label>?): String {
         return Gson().toJson(value)
     }
 
     @TypeConverter
-    fun jsonToUser(value: String): Label? {
-        return Gson().fromJson(value, Label::class.java) as Label
+    fun jsonToUser(value: String?): List<Label> {
+        val objects = Gson().fromJson(value, Array<Label>::class.java) as Array<Label>
+        return objects.toList()
     }
 }

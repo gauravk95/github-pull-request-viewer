@@ -15,8 +15,10 @@
 */
 package com.github.pullrequest.data.source.repository.remote
 
+import com.github.pullrequest.data.models.local.PullRequest
 import com.github.pullrequest.data.source.repository.AppDataSource
 import com.github.pullrequest.data.source.network.NetworkAPIs
+import io.reactivex.Observable
 
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,5 +32,11 @@ import javax.inject.Singleton
 @Singleton
 class AppRemoteDataSource @Inject
 constructor(private val networkAPIs: NetworkAPIs) : AppDataSource {
-    //implement remote sources
+
+    override fun getPullRequests(ownerName: String, repoName: String,
+                                 state: String, page: Int,
+                                 sortBy: String, direction: String): Observable<List<PullRequest>> {
+        return networkAPIs.getAPIService()
+                .getGithubPullRequest(ownerName, repoName, state, page, sortBy, direction)
+    }
 }

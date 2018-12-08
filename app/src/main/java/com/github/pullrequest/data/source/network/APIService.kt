@@ -15,6 +15,12 @@
 */
 package com.github.pullrequest.data.source.network
 
+import com.github.pullrequest.data.models.local.PullRequest
+import io.reactivex.Observable
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+
 /**
  * Retrofit API services to connect to server
  *
@@ -22,5 +28,13 @@ package com.github.pullrequest.data.source.network
  */
 
 interface APIService {
-    //add api's here
+
+    @GET("/repos/{owner}/{repo}/pulls")
+    fun getGithubPullRequest(@Path("owner") ownerName: String,
+                             @Path("repo") repoName: String,
+                             @Query("state") state: String,
+                             @Query("page") page: Int,
+                             @Query("sort") sortBy: String,
+                             @Query("direction") direction: String): Observable<List<PullRequest>>
+
 }

@@ -15,10 +15,20 @@
 */
 package com.github.pullrequest.data.source.repository
 
+import com.github.pullrequest.data.models.local.PullRequest
+import io.reactivex.Observable
+
 /**
  * Created by gk
  */
 
 interface AppDataSource {
-    //add common interface for data sources here
+
+    fun getPullRequests(ownerName: String,
+                        repoName: String,
+                        state: String,
+                        page: Int,
+                        sortBy: String,
+                        direction: String): Observable<List<PullRequest>>
+
 }

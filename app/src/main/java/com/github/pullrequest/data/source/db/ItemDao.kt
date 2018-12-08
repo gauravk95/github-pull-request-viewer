@@ -20,11 +20,8 @@ import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import android.arch.persistence.room.Update
 
 import com.github.pullrequest.data.models.local.PullRequest
-
-import io.reactivex.Flowable
 
 /**
  * Data access objects for connection to SQLite DB using Room
@@ -38,17 +35,8 @@ interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSingleItem(pullRequest: PullRequest)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMultipleItem(pullRequestList: List<PullRequest>)
-
     @Query("SELECT * FROM Item WHERE id = :itemId")
-    fun fetchItemByItemId(itemId: Int): Flowable<PullRequest>
-
-    @Query("SELECT * FROM Item")
-    fun fetchItems(): Flowable<List<PullRequest>>
-
-    @Update
-    fun updateItem(pullRequest: PullRequest)
+    fun fetchItemByItemId(itemId: Int): PullRequest
 
     @Delete
     fun deleteItem(pullRequest: PullRequest)
