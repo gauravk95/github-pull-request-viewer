@@ -17,18 +17,28 @@ package com.github.pullrequest.data.models.local
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import java.util.*
 
 /**
  * Describes the data to be modeled
- * Note:
- * Uses both the Room specific annotations for Local DB
- * Uses Gson annotations for Json serialization for Network requests
- *
  * Created by gk
  */
 
 @Entity(tableName = "item")
-data class Item(
+data class PullRequest(
         @field:PrimaryKey
         val id: String,
-        val name: String)
+        val url: String,
+        val state: String,
+        val locked: Boolean = false,
+        val title: String,
+        val body: String,
+        val labels: List<Label>,
+        val created_at: Date,
+        val update_at: Date)
+
+data class Label(val id: String,
+                 val url: String,
+                 val name: String,
+                 val color: String,
+                 val default: Boolean = false)

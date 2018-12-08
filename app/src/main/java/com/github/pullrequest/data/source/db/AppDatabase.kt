@@ -17,14 +17,16 @@ package com.github.pullrequest.data.source.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 
-import com.github.pullrequest.data.models.local.Item
+import com.github.pullrequest.data.models.local.PullRequest
 
 /**
  * The Room Database that contains the Item table.
  */
 
-@Database(entities = [Item::class], version = 1)
+@Database(entities = [PullRequest::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun itemDao(): ItemDao

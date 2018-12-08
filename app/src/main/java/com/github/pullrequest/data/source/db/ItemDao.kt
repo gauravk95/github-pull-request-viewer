@@ -22,7 +22,7 @@ import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 
-import com.github.pullrequest.data.models.local.Item
+import com.github.pullrequest.data.models.local.PullRequest
 
 import io.reactivex.Flowable
 
@@ -36,21 +36,21 @@ import io.reactivex.Flowable
 interface ItemDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSingleItem(item: Item)
+    fun insertSingleItem(pullRequest: PullRequest)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMultipleItem(itemList: List<Item>)
+    fun insertMultipleItem(pullRequestList: List<PullRequest>)
 
     @Query("SELECT * FROM Item WHERE id = :itemId")
-    fun fetchItemByItemId(itemId: Int): Flowable<Item>
+    fun fetchItemByItemId(itemId: Int): Flowable<PullRequest>
 
     @Query("SELECT * FROM Item")
-    fun fetchItems(): Flowable<List<Item>>
+    fun fetchItems(): Flowable<List<PullRequest>>
 
     @Update
-    fun updateItem(item: Item)
+    fun updateItem(pullRequest: PullRequest)
 
     @Delete
-    fun deleteItem(item: Item)
+    fun deleteItem(pullRequest: PullRequest)
 
 }
