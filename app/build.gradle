@@ -31,13 +31,13 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://demo3330795.mockable.io/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com\""
         }
 
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"https://demo3330795.mockable.io/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com\""
         }
     }
 }
