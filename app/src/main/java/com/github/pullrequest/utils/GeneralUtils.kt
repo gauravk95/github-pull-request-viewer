@@ -1,10 +1,8 @@
 package com.github.pullrequest.utils
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import com.cunoraz.tagview.Tag
-import com.github.pullrequest.R
 import com.github.pullrequest.data.models.local.Label
 
 object GeneralUtils {
@@ -23,7 +21,11 @@ object GeneralUtils {
             val tag = Tag(label.name)
             val backgroundDrawable = GradientDrawable()
             backgroundDrawable.cornerRadius = 16.0f
-            backgroundDrawable.setColor(Color.parseColor("#${label.color}"))
+            try {
+                backgroundDrawable.setColor(Color.parseColor("#${label.color}"))
+            } catch (e: Exception) {
+                backgroundDrawable.setColor(Color.parseColor("#212121"))
+            }
             tag.background = backgroundDrawable
             tag.tagTextSize = 12.0f
             //add the tag to the list
