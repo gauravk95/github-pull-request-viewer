@@ -29,7 +29,7 @@ interface AppDataSource {
                         repoName: String,
                         state: String,
                         page: Int = 1,
-                        sortBy: String = AppConstants.SORT_BY_POPULARITY,
+                        sortBy: String = AppConstants.SORT_BY_CREATED,
                         direction: String = AppConstants.SORT_ORDER_DESCENDING): Observable<List<PullRequest>>
 
 }
