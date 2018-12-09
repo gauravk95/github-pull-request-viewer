@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_title">16sp</dimen>
+    <dimen name="tag_corner_radius">6dp</dimen>
+    <dimen name="tag_text_size">12sp</dimen>
 </resources>

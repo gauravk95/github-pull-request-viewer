@@ -22,6 +22,7 @@ import android.view.ViewGroup
 
 import com.github.pullrequest.data.models.local.PullRequest
 import com.github.pullrequest.databinding.ItemPrListBinding
+import com.github.pullrequest.utils.GeneralUtils
 
 /**
  * Adapter that used to display [PullRequest] in a recycler view
@@ -50,8 +51,9 @@ class PRItemListAdapter constructor(private val onItemClicked: (String?) -> Unit
 
         fun bind(curItem: PullRequest, onItemClicked: (String?) -> Unit) {
             binding.apply {
-                binding.root.setOnClickListener { onItemClicked(curItem.html_url) }
+                root.setOnClickListener { onItemClicked(curItem.html_url) }
                 item = curItem
+                prItemTags.addTags(GeneralUtils.generateTagListFromLabels(root.context, curItem.labels))
                 executePendingBindings()
             }
         }

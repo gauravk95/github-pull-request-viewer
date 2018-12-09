@@ -87,6 +87,9 @@ dependencies {
     //kotlin support
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    //other ui related
+    implementation "com.github.Cutta:TagView:$tagViewVersion"
+
     //test dependencies
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"

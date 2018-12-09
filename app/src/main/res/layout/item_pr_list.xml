@@ -15,13 +15,27 @@
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground">
 
+        <com.cunoraz.tagview.TagView
+            android:id="@+id/pr_item_tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:textPaddingLeft="4dp"
+            app:textPaddingTop="2dp"
+            app:textPaddingRight="4dp"
+            app:textPaddingBottom="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.github.pullrequest.ui.custom.CustomTextView
             android:id="@+id/pr_item_title"
             style="@style/text_font_opensans_semi_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:maxLines="3"
             android:text="@{item.title, default = Title}"
@@ -30,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/pr_item_tags" />
 
         <com.github.pullrequest.ui.custom.CustomTextView
             android:id="@+id/pr_item_number"
