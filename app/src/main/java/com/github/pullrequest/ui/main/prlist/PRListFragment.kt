@@ -16,22 +16,27 @@
 package com.github.pullrequest.ui.main.prlist
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import com.github.pullrequest.data.source.state.LoadingStatus
 import com.github.pullrequest.R
 import com.github.pullrequest.base.BaseFragment
 import com.github.pullrequest.databinding.FragmentPrListBinding
 import com.github.pullrequest.di.factory.AppViewModelFactory
 import com.github.pullrequest.ui.adapter.PRItemListAdapter
+import com.github.pullrequest.utils.AppLogger
 import com.github.pullrequest.utils.ext.getViewModel
 import com.github.pullrequest.utils.ext.hideKeyboard
 import com.github.pullrequest.utils.ext.toGone
 import com.github.pullrequest.utils.ext.toVisible
+import java.lang.Exception
 
 import javax.inject.Inject
 
@@ -50,7 +55,6 @@ class PRListFragment : BaseFragment() {
     private lateinit var prListViewModel: PRListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pr_list, container, false)
         return binding.root
     }
@@ -62,7 +66,9 @@ class PRListFragment : BaseFragment() {
         activityComponent.inject(this)
 
         //create the adapter
-        val adapter = PRItemListAdapter()
+        val adapter = PRItemListAdapter {
+            prListViewModel.onPullRequestItemClicked(it)
+        }
         binding.itemRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
         binding.itemRecyclerView.adapter = adapter
 
@@ -93,19 +99,68 @@ class PRListFragment : BaseFragment() {
         binding.hasItems = false
         binding.viewModel = prListViewModel
 
-        prListViewModel.isLoading().observe(this, Observer { showProgress(it) })
         prListViewModel.getErrorMsg().observe(this, Observer { errorMessage ->
             if (errorMessage != null) onError(errorMessage)
         })
         prListViewModel.toastMsg.observe(this, Observer {
             if (it != null) showToastMessage(it)
         })
-        prListViewModel.itemList.observe(this, Observer { items ->
+        prListViewModel.pullRequestList.observe(this, Observer { items ->
             val hasItems = (items != null && items.isNotEmpty())
             binding.hasItems = hasItems
-            if (hasItems)
-                adapter.submitList(items)
+            adapter.submitList(items)
         })
+        prListViewModel.loadingState.observe(this, Observer {
+            when (it?.loadingStatus) {
+                LoadingStatus.FIRST_RUNNING -> showProgress(true)
+                LoadingStatus.FIRST_EMPTY -> {
+                    showSearchStatusMessage(R.string.search_msg_repo_not_found)
+                    showProgress(false)
+                }
+                LoadingStatus.FIRST_SUCCESS -> showProgress(false)
+                LoadingStatus.FIRST_FAILED -> {
+                    showSearchStatusMessage(R.string.search_msg_repo_not_found)
+                    showProgress(false)
+                }
+                LoadingStatus.RUNNING -> {
+                    showNextLoadProgress(true)
+                }
+                LoadingStatus.SUCCESS -> {
+                    showNextLoadProgress(false)
+                }
+                LoadingStatus.FAILED -> {
+                    showNextLoadProgress(false)
+                    showToastMessage(R.string.error_cannot_load_more)
+                }
+                else -> {
+                    showProgress(false)
+                }
+            }
+        })
+        prListViewModel.pullRequestSelected.observe(this, Observer {
+            val url = it?.getContentIfNotHandled()
+            if (!url.isNullOrEmpty())
+                launchPullRequestUrl(url)
+        })
+    }
+
+    private fun launchPullRequestUrl(url: String) {
+        var finalUrl: String = url
+        if (!url.startsWith("https://") && !url.startsWith("http://"))
+            finalUrl = "http://$url"
+
+        try {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl))
+            startActivity(browserIntent)
+        } catch (e: Exception) {
+            AppLogger.e(TAG, "Error occurred while launching...")
+        }
+
+    }
+
+    private fun showSearchStatusMessage(resId: Int) {
+        binding.searchStatusMsg.toVisible()
+        binding.searchStatusMsg.text = getText(resId)
     }
 
     private fun showProgress(status: Boolean?) {
@@ -117,7 +172,17 @@ class PRListFragment : BaseFragment() {
         }
     }
 
+    private fun showNextLoadProgress(status: Boolean?) {
+        if (status != null && status) {
+            binding.itemLoadingNext.toVisible()
+        } else {
+            binding.itemLoadingNext.toGone()
+        }
+    }
+
     companion object {
+        const val TAG = "PRListFragment"
+
         fun newInstance(): PRListFragment {
             return PRListFragment()
         }

@@ -31,6 +31,7 @@ data class PullRequest(
         @field:PrimaryKey
         val id: String,
         val url: String,
+        val html_url: String,
         val number: Int,
         val state: String,
         val locked: Boolean = false,
@@ -41,7 +42,7 @@ data class PullRequest(
         val created_at: Date,
         val update_at: Date) : Serializable {
 
-    fun getAgoTime(): String{
+    fun getAgoTime(): String {
         return DateUtils.getRelativeTimeSpanString(created_at.time).toString()
     }
 }

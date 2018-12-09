@@ -15,4 +15,11 @@
     <string name="search_query_empty">Search query is empty!</string>
     <string name="search_query_invalid">Please enter a valid query!</string>
 
+    <string name="label_loading_in_progress">Loading…</string>
+    <string name="label_loading_reset">Reset…</string>
+    <string name="label_loading_success">Success…</string>
+    <string name="label_loading_empty">Empty…</string>
+    <string name="label_loading_failed">Failed…</string>
+    <string name="error_cannot_load_more">Can\'t load more</string>
+
 </resources>

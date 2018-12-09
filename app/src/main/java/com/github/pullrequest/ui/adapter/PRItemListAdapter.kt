@@ -15,7 +15,7 @@
 */
 package com.github.pullrequest.ui.adapter
 
-import android.support.v7.recyclerview.extensions.ListAdapter
+import android.arch.paging.PagedListAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,13 +28,16 @@ import com.github.pullrequest.databinding.ItemPrListBinding
  *
  * Created by gk
  */
-class PRItemListAdapter : ListAdapter<PullRequest, PRItemListAdapter.ViewHolder>(PRItemDiffCallback()) {
+class PRItemListAdapter constructor(private val onItemClicked: (String?) -> Unit)
+    : PagedListAdapter<PullRequest, PRItemListAdapter.ViewHolder>(PRItemDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.apply {
-            bind(item)
-            itemView.tag = item
+            if (item != null) {
+                bind(item, onItemClicked)
+                itemView.tag = item
+            }
         }
     }
 
@@ -45,8 +48,9 @@ class PRItemListAdapter : ListAdapter<PullRequest, PRItemListAdapter.ViewHolder>
 
     class ViewHolder(private val binding: ItemPrListBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(curItem: PullRequest) {
+        fun bind(curItem: PullRequest, onItemClicked: (String?) -> Unit) {
             binding.apply {
+                binding.root.setOnClickListener { onItemClicked(curItem.html_url) }
                 item = curItem
                 executePendingBindings()
             }
