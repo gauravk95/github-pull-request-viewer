@@ -70,7 +70,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:gravity="center"
-            android:text="@{viewModel.searchStatus, default = SearchHere}"
+            android:text="@string/search_msg_start_searching"
             android:textSize="20sp"
             android:visibility="visible"
             app:isGone="@{hasItems}"

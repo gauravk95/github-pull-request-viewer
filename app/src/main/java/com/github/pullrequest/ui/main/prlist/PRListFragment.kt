@@ -122,19 +122,13 @@ class PRListFragment : BaseFragment() {
                     showSearchStatusMessage(R.string.search_msg_repo_not_found)
                     showProgress(false)
                 }
-                LoadingStatus.RUNNING -> {
-                    showNextLoadProgress(true)
-                }
-                LoadingStatus.SUCCESS -> {
-                    showNextLoadProgress(false)
-                }
+                LoadingStatus.RUNNING -> showNextLoadProgress(true)
+                LoadingStatus.SUCCESS -> showNextLoadProgress(false)
                 LoadingStatus.FAILED -> {
                     showNextLoadProgress(false)
                     showToastMessage(R.string.error_cannot_load_more)
                 }
-                else -> {
-                    showProgress(false)
-                }
+                else -> showProgress(false)
             }
         })
         prListViewModel.pullRequestSelected.observe(this, Observer {
@@ -163,9 +157,13 @@ class PRListFragment : BaseFragment() {
         binding.searchStatusMsg.text = getText(resId)
     }
 
+    private fun hideSearchStatusMessage() {
+        binding.searchStatusMsg.toGone()
+    }
+
     private fun showProgress(status: Boolean?) {
         if (status != null && status) {
-            binding.searchStatusMsg.toGone()
+            hideSearchStatusMessage()
             binding.itemLoading.toVisible()
         } else {
             binding.itemLoading.toGone()

@@ -33,7 +33,6 @@ constructor(appRepository: AppDataSource,
         const val PAGE_SIZE = 10
     }
 
-    val searchStatus = ObservableField<Int>(R.string.search_msg_start_searching)
     val toastMsg: MutableLiveData<Int> = MutableLiveData()
 
     val pullRequestSelected: MutableLiveData<EventOnce<String>> = MutableLiveData()
