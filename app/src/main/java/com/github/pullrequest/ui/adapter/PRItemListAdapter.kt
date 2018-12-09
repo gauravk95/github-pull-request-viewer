@@ -53,7 +53,7 @@ class PRItemListAdapter constructor(private val onItemClicked: (String?) -> Unit
             binding.apply {
                 root.setOnClickListener { onItemClicked(curItem.html_url) }
                 item = curItem
-                prItemTags.addTags(GeneralUtils.generateTagListFromLabels(root.context, curItem.labels))
+                prItemTags.addTags(GeneralUtils.generateTagListFromLabels(curItem.labels))
                 executePendingBindings()
             }
         }

@@ -16,7 +16,7 @@ object GeneralUtils {
     /**
      * Transforms list of [Label] to list of [Tag]
      */
-    fun generateTagListFromLabels(context: Context, labels: List<Label>): MutableList<Tag>? {
+    fun generateTagListFromLabels(labels: List<Label>): MutableList<Tag>? {
         val list = mutableListOf<Tag>()
         for (label in labels) {
             //create the tag from label
